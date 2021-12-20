@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.TextView
 import com.spotify.android.appremote.api.ConnectionParams;
 import com.spotify.android.appremote.api.Connector;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
@@ -15,6 +16,9 @@ import com.spotify.protocol.types.Track;
 
 class MainActivity : AppCompatActivity() {
     private lateinit var button_connect: Button
+    private lateinit var button_next: Button
+    private lateinit var tv_song: TextView
+    private lateinit var tv_artist: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +31,14 @@ class MainActivity : AppCompatActivity() {
 //                startActivity(intent)
             }
         }
+
+        button_next = findViewById(R.id.button_next)
+        button_next.setOnClickListener{
+            SpotifyService.playPlaylist();
+        }
+
+        tv_song = findViewById(R.id.tv_song_name)
+        tv_artist = findViewById(R.id.tv_artist_name)
     }
 
     override fun onStart() {
@@ -36,11 +48,21 @@ class MainActivity : AppCompatActivity() {
 
     private fun connected(connected: Boolean) {
         Log.d("Connected ", connected.toString());
+        if(connected){
+            subscribePlayerState()
+        }
+    }
+
+    private fun subscribePlayerState(){
+        SpotifyService.subscribeToPlayerState { track: Track ->
+            tv_song.text = track.name
+            tv_artist.text = track.artist.name
+        }
 
     }
 
     override fun onStop() {
         super.onStop()
-        // Aaand we will finish off here.
+        SpotifyService.stop()
     }
 }

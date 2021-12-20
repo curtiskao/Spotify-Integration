@@ -5,6 +5,7 @@ import android.util.Log
 import com.spotify.android.appremote.api.ConnectionParams
 import com.spotify.android.appremote.api.Connector
 import com.spotify.android.appremote.api.SpotifyAppRemote
+import com.spotify.protocol.types.Track
 
 object SpotifyService {
     private val clientId = "8c352ad77f27435fa6e7a613c38f4127"
@@ -33,5 +34,34 @@ object SpotifyService {
             }
         }
         SpotifyAppRemote.connect(context, connectionParams, connectionListener)
+    }
+
+    fun subscribeToPlayerState(handler: (track: Track) -> Unit){
+        spotifyAppRemote?.let {
+            // Subscribe to PlayerState
+            it.playerApi.subscribeToPlayerState().setEventCallback {
+                val track: Track = it.track
+                Log.d("MainActivity", track.name + " by " + track.artist.name)
+                handler(track)
+            }
+        }
+
+        playPlaylist()
+    }
+
+    fun playPlaylist(){
+        spotifyAppRemote?.let {
+            // Play a playlist
+            val playlistURI = "spotify:playlist:2JMsJkDddVnwgL45P5BXwp"
+            it.playerApi.play(playlistURI)
+        }
+    }
+
+
+
+    fun stop(){
+        spotifyAppRemote?.let {
+            SpotifyAppRemote.disconnect(it)
+        }
     }
 }
