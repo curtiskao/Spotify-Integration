@@ -36,6 +36,22 @@ object SpotifyService {
         SpotifyAppRemote.connect(context, connectionParams, connectionListener)
     }
 
+    fun resume() {
+        spotifyAppRemote?.playerApi?.resume()
+    }
+
+    fun pause() {
+        spotifyAppRemote?.playerApi?.pause()
+    }
+
+    fun skip(){
+        spotifyAppRemote?.playerApi?.skipNext()
+    }
+
+    fun skipPrevious(){
+        spotifyAppRemote?.playerApi?.skipPrevious()
+    }
+
     fun subscribeToPlayerState(handler: (track: Track) -> Unit){
         spotifyAppRemote?.let {
             // Subscribe to PlayerState
@@ -54,6 +70,19 @@ object SpotifyService {
             // Play a playlist
             val playlistURI = "spotify:playlist:2JMsJkDddVnwgL45P5BXwp"
             it.playerApi.play(playlistURI)
+        }
+    }
+
+    fun getPlayingState(handler: (playingState: PlayingState) -> Unit){
+        spotifyAppRemote?.playerApi?.playerState?.setResultCallback { result ->
+            if(result.track.uri==null){
+                handler(PlayingState.STOPPED)
+            }else if(result.isPaused){
+                handler(PlayingState.PAUSED)
+            }else{
+                handler(PlayingState.PLAYING)
+            }
+
         }
     }
 
