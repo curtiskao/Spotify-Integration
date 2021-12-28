@@ -21,38 +21,33 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setOnClickListeners()
         tv_playState = findViewById(R.id.tv_playState)
         tv_song = findViewById(R.id.tv_song_name)
         tv_artist = findViewById(R.id.tv_artist_name)
+        setOnClickListeners()
+
     }
 
     private fun setOnClickListeners(){
-        button_connect = findViewById(R.id.button_connect)
-        button_connect.setOnClickListener {
-            SpotifyService.connect(this) {
-                connected(it)
-            }
-        }
-
         button_play = findViewById(R.id.button_play)
-        button_play.setOnClickListener{
-            SpotifyService.playPlaylist();
-        }
+        handleStopped()
 
 
         button_next = findViewById(R.id.button_next)
         button_next.setOnClickListener{
             SpotifyService.skip()
+
         }
 
         button_previous = findViewById(R.id.button_previous)
         button_previous.setOnClickListener{
             SpotifyService.skipPrevious()
+
         }
 
         findViewById<Button>(R.id.button_donda).setOnClickListener{playAlbum(Album.DONDA)}
         findViewById<Button>(R.id.button_jik).setOnClickListener{playAlbum(Album.JIK)}
+        findViewById<Button>(R.id.button_ksg).setOnClickListener{playAlbum(Album.KSG)}
         findViewById<Button>(R.id.button_ye).setOnClickListener{playAlbum(Album.YE)}
         findViewById<Button>(R.id.button_tlop).setOnClickListener{playAlbum(Album.TLOP)}
         findViewById<Button>(R.id.button_yeezus).setOnClickListener{playAlbum(Album.YEEZUS)}
@@ -67,47 +62,59 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         // We will start writing our code here.
+        SpotifyService.connect(this) {
+            connected(it)
+        }
     }
 
     private fun connected(connected: Boolean) {
-        Log.d("Connected ", connected.toString());
+        Log.d("MainActivity ", "connected");
         if(connected){
             subscribePlayerState()
         }
     }
 
     private fun subscribePlayerState(){
-        SpotifyService.subscribeToPlayerState { track: Track ->
+        SpotifyService.subscribeToPlayerState { track: Track, isPaused: Boolean ->
             tv_song.text = track.name
             tv_artist.text = track.artist.name
+            handleState(isPaused)
         }
     }
 
-    private fun getState(): Unit{
-        SpotifyService.getPlayingState {
-            //handle playing state
-            when(it){
-                PlayingState.STOPPED -> handleStopped();
-                PlayingState.PAUSED -> handlePaused();
-                PlayingState.PLAYING -> handlePlaying();
-            }
+
+    private fun handleState(isPaused: Boolean): Unit{
+        if(isPaused){
+            handlePaused();
+        }else{
+            handlePlaying();
         }
     }
+
+
     private fun handleStopped(){
         tv_playState.text = "Stopped"
         button_play.text = "Play"
+        button_play.setOnClickListener{
+            SpotifyService.playPlaylist();
+        }
     }
 
     private fun handlePaused(){
         tv_playState.text = "Paused"
         button_play.text = "Play"
-
+        button_play.setOnClickListener{
+            SpotifyService.resume()
+        }
 
     }
 
     private fun handlePlaying(){
         tv_playState.text = "Now Playing"
         button_play.text = "Pause"
+        button_play.setOnClickListener{
+            SpotifyService.pause();
+        }
 
     }
 
@@ -132,6 +139,7 @@ class MainActivity : AppCompatActivity() {
 
         if(!uri.equals("")){
             //play
+            SpotifyService.playAlbum(uri)
         }
     }
 
