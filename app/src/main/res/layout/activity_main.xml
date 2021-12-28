@@ -19,6 +19,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <TextView
         android:id="@+id/tv_song_name"
         android:layout_width="wrap_content"
@@ -45,185 +46,208 @@
         app:layout_constraintTop_toBottomOf="@id/tv_song_name"
         />
 
-    <Button
+    <ImageButton
         android:id="@+id/button_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Next"
+        android:background="@drawable/skip"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/button_play"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <ImageButton
         android:id="@+id/button_previous"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Previous"
+        android:background="@drawable/previous"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/button_play"
         app:layout_constraintTop_toTopOf="parent" />
 
 
-    <Button
+    <ImageButton
         android:id="@+id/button_play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Play"
+        android:background="@drawable/play"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button_donda"
-        android:layout_width="wrap_content"
+    <HorizontalScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
-        android:backgroundTint="@color/black"
-        android:text="DONDA"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/button_jik"
-        />
-
-    <Button
-        android:id="@+id/button_jik"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
-        android:backgroundTint="@color/blue_jik"
-        android:textColor="@color/gold"
-        android:text="JIK"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/button_donda"
-        app:layout_constraintRight_toLeftOf="@id/button_ksg"
-        />
-
-    <Button
-        android:id="@+id/button_ksg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
-        android:backgroundTint="@color/pink_ksg"
-        android:textColor="@color/white"
-        android:text="KSG"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/button_jik"
-        app:layout_constraintRight_toLeftOf="@id/button_ye"
-        />
-
-    <Button
-        android:id="@+id/button_ye"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
-        android:backgroundTint="@color/blue_ye"
-        android:textColor="@color/green"
-        android:text="Ye"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/button_ksg"
         app:layout_constraintRight_toRightOf="parent"
-        />
+        >
 
-    <Button
-        android:id="@+id/button_tlop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:backgroundTint="@color/orange_tlop"
-        android:text="tlop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/button_yeezus"
-        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/button_yeezus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:backgroundTint="@color/white"
-        android:textColor="@color/red"
-        android:text="yeezus"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/button_tlop"
-        app:layout_constraintRight_toLeftOf="@id/button_ksg"
-        />
+            <Button
+                android:id="@+id/button_random"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Random"
+                android:layout_marginEnd="12dp"
+                />
 
-    <Button
-        android:id="@+id/button_throne"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:backgroundTint="@color/gold"
-        android:textColor="@color/white"
-        android:text="throne"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/button_yeezus"
-        app:layout_constraintRight_toLeftOf="@id/button_mbdtf"
-        />
+            <Button
+                android:id="@+id/button_donda"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="100dp"
+                android:backgroundTint="@color/black"
+                android:text="DONDA"
+                android:layout_marginStart="12dp"
 
-    <Button
-        android:id="@+id/button_mbdtf"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp"
-        android:backgroundTint="@color/red"
-        android:textColor="@color/black"
-        android:text="mbdtf"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/button_throne"
-        app:layout_constraintRight_toRightOf="parent"
-        />
+                />
 
-    <Button
-        android:id="@+id/button_808"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/grey_808"
-        android:text="808"
-        android:textColor="@color/red"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/button_graduation"
-         />
+            <Button
+                android:id="@+id/button_jik"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="100dp"
+                android:backgroundTint="@color/blue_jik"
+                android:textColor="@color/gold"
+                android:text="JIK"
+                android:layout_marginStart="12dp"
+                />
 
-    <Button
-        android:id="@+id/button_graduation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/purple_graduation"
-        android:text="Grad"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/button_808"
-        app:layout_constraintRight_toLeftOf="@id/button_late_registration"
-        />
+            <Button
+                android:id="@+id/button_ksg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="100dp"
+                android:backgroundTint="@color/pink_ksg"
+                android:textColor="@color/white"
+                android:text="KSG"
+                android:layout_marginStart="12dp"
+                />
 
-    <Button
-        android:id="@+id/button_late_registration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/brown"
-        android:text="Late reg"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/button_graduation"
-        app:layout_constraintRight_toLeftOf="@id/button_college_dropout"
-         />
+            <Button
+                android:id="@+id/button_ye"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="100dp"
+                android:backgroundTint="@color/blue_ye"
+                android:textColor="@color/green"
+                android:text="Ye"
+                android:layout_marginStart="12dp"
+                />
 
-    <Button
-        android:id="@+id/button_college_dropout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        android:text="drop out"
-        android:textColor="@color/brown"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/button_late_registration"
-        app:layout_constraintRight_toRightOf="parent" />
+            <Button
+                android:id="@+id/button_tlop"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp"
+                android:backgroundTint="@color/orange_tlop"
+                android:text="tlop"
+                android:layout_marginStart="12dp"
+
+                />
+
+            <Button
+                android:id="@+id/button_yeezus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp"
+                android:backgroundTint="@color/white"
+                android:textColor="@color/red"
+                android:text="yeezus"
+                android:layout_marginStart="12dp"
+
+                />
+
+            <Button
+                android:id="@+id/button_throne"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp"
+                android:backgroundTint="@color/gold"
+                android:textColor="@color/white"
+                android:text="throne"
+                android:layout_marginStart="12dp"
+
+                />
+
+            <Button
+                android:id="@+id/button_mbdtf"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="50dp"
+                android:backgroundTint="@color/red"
+                android:textColor="@color/black"
+                android:text="mbdtf"
+                android:layout_marginStart="12dp"
+
+                />
+
+            <Button
+                android:id="@+id/button_808"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/grey_808"
+                android:text="808"
+                android:textColor="@color/red"
+                android:layout_marginStart="12dp"
+
+                />
+
+            <Button
+                android:id="@+id/button_graduation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/purple_graduation"
+                android:text="Grad"
+                android:textColor="@color/white"
+                android:layout_marginStart="12dp"
+
+                />
+
+            <Button
+                android:id="@+id/button_late_registration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/brown"
+                android:text="Late reg"
+                android:textColor="@color/white"
+                android:layout_marginStart="12dp"
+
+                />
+
+            <Button
+                android:id="@+id/button_college_dropout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:text="drop out"
+                android:textColor="@color/brown"
+                android:layout_marginStart="12dp"
+
+                />
+
+        </LinearLayout>
+
+
+
+    </HorizontalScrollView>
+
+
+
 
 
 

@@ -4,15 +4,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 
 import com.spotify.protocol.types.Track;
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var button_connect: Button
-    private lateinit var button_play: Button
-    private lateinit var button_next: Button
-    private lateinit var button_previous: Button
+    private lateinit var button_random: Button
+    private lateinit var button_play: ImageButton
+    private lateinit var button_next: ImageButton
+    private lateinit var button_previous: ImageButton
     private lateinit var tv_playState: TextView
     private lateinit var tv_song: TextView
     private lateinit var tv_artist: TextView
@@ -45,6 +46,8 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+        findViewById<Button>(R.id.button_random).setOnClickListener{playRandom()}
+
         findViewById<Button>(R.id.button_donda).setOnClickListener{playAlbum(Album.DONDA)}
         findViewById<Button>(R.id.button_jik).setOnClickListener{playAlbum(Album.JIK)}
         findViewById<Button>(R.id.button_ksg).setOnClickListener{playAlbum(Album.KSG)}
@@ -59,6 +62,7 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.button_college_dropout).setOnClickListener{playAlbum(Album.COLLEGE_DROPOUT)}
     }
 
+
     override fun onStart() {
         super.onStart()
         // We will start writing our code here.
@@ -70,6 +74,7 @@ class MainActivity : AppCompatActivity() {
     private fun connected(connected: Boolean) {
         Log.d("MainActivity ", "connected");
         if(connected){
+            SpotifyService.setNoShuffle()
             subscribePlayerState()
         }
     }
@@ -94,7 +99,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleStopped(){
         tv_playState.text = "Stopped"
-        button_play.text = "Play"
+        button_play.background = getDrawable(R.drawable.play)
         button_play.setOnClickListener{
             SpotifyService.playPlaylist();
         }
@@ -102,7 +107,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun handlePaused(){
         tv_playState.text = "Paused"
-        button_play.text = "Play"
+        button_play.background = getDrawable(R.drawable.play)
         button_play.setOnClickListener{
             SpotifyService.resume()
         }
@@ -111,7 +116,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun handlePlaying(){
         tv_playState.text = "Now Playing"
-        button_play.text = "Pause"
+        button_play.background = getDrawable(R.drawable.pause)
         button_play.setOnClickListener{
             SpotifyService.pause();
         }
@@ -141,6 +146,13 @@ class MainActivity : AppCompatActivity() {
             //play
             SpotifyService.playAlbum(uri)
         }
+    }
+
+    private fun playRandom() {
+        val randonList = Album.values().toList().shuffled()
+
+        val randomAlbum = randonList.first()
+        playAlbum(randomAlbum)
     }
 
     override fun onStop() {

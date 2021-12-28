@@ -5,6 +5,7 @@ import android.util.Log
 import com.spotify.android.appremote.api.ConnectionParams
 import com.spotify.android.appremote.api.Connector
 import com.spotify.android.appremote.api.SpotifyAppRemote
+import com.spotify.protocol.types.Shuffle
 import com.spotify.protocol.types.Track
 
 object SpotifyService {
@@ -34,6 +35,10 @@ object SpotifyService {
             }
         }
         SpotifyAppRemote.connect(context, connectionParams, connectionListener)
+    }
+
+    fun setNoShuffle() {
+        spotifyAppRemote?.playerApi?.setShuffle(false)
     }
 
     fun resume() {
