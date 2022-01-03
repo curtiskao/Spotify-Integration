@@ -3,9 +3,11 @@ package com.example.spotifyintegration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 
 import com.spotify.protocol.types.Track;
 
@@ -45,7 +47,7 @@ class MainActivity : AppCompatActivity() {
             SpotifyService.skipPrevious()
 
         }
-
+        findViewById<Button>(R.id.button_reconnect).setOnClickListener{connect()}
         findViewById<Button>(R.id.button_random).setOnClickListener{playRandom()}
 
         findViewById<Button>(R.id.button_donda).setOnClickListener{playAlbum(Album.DONDA)}
@@ -62,10 +64,13 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.button_college_dropout).setOnClickListener{playAlbum(Album.COLLEGE_DROPOUT)}
     }
 
-
     override fun onStart() {
         super.onStart()
         // We will start writing our code here.
+        connect()
+    }
+
+    private fun connect() {
         SpotifyService.connect(this) {
             connected(it)
         }
@@ -74,8 +79,15 @@ class MainActivity : AppCompatActivity() {
     private fun connected(connected: Boolean) {
         Log.d("MainActivity ", "connected");
         if(connected){
+            findViewById<ConstraintLayout>(R.id.mainLayout).visibility = View.VISIBLE
+            findViewById<ConstraintLayout>(R.id.errorLayout).visibility = View.GONE
+
             SpotifyService.setNoShuffle()
             subscribePlayerState()
+        }else{
+            //show reconnect screen
+            findViewById<ConstraintLayout>(R.id.mainLayout).visibility = View.GONE
+            findViewById<ConstraintLayout>(R.id.errorLayout).visibility = View.VISIBLE
         }
     }
 
